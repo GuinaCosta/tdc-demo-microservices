@@ -1,0 +1,40 @@
+version: '3'
+services:
+  app-spring:
+    build:
+      context: springboot-redis
+      dockerfile: Dockerfile
+    ports:
+      - "8095:8090"
+    environment:
+      - REDIS_HOST=redis-spring
+      - SERVER_PORT=8090
+      - INTEGRATION_CLIENT_SALES_URL=http://app-dotnet
+      - INTEGRATION_CLIENT_CUSTOMER_URL=http://app-dynamodb:8075
+  app-dotnet:
+    build:
+      context: dotnetcore-redis/APICotacoes
+      dockerfile: Dockerfile.nr
+    ports:
+      - "8030:80"
+  app-dynamodb:
+    build:
+      context: springboot-dynamodb
+      dockerfile: Dockerfile
+    ports:
+      - "8075:8075"
+    environment:
+      - AWS_ROLE=foo
+      - AWS_ACCESSKEY=bar
+      - AWS_SECRETKEY=secret
+      - SERVER_PORT=8075
+  redis:
+    image: redis
+    #command: redis-server --requirepass Redis2019!
+    ports:
+      - "6379:6379"
+  redis-spring:
+    image: redis
+    #command: redis-server --requirepass Redis2019!
+    #ports:
+    #  - "6379:6379"

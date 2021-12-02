@@ -1,0 +1,5 @@
+/.idea/*
+/target
+
+### NEWRELIC ###
+newrelic/newrelic.yml

@@ -1,0 +1,13 @@
+springdoc:
+  api-docs:
+    path: /api-docs
+redis:
+  host: localhost
+  port: 6379
+
+integration:
+  client:
+    sales:
+      url: http://localhost:8030
+    customer:
+      url: http://localhost:8075
